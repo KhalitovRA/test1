@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }} :: {{ block.super }}
+{% endblock %}
+
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+{% now "Y-m-d H:m" %}
+{% for item in object_list %}
+<div class="card mb-3">
+    <div class="card-header">
+        Категория: <a href="{{ item.category.get_absolute_url }}">{{ item.category.title }}</a>
+    </div>
+    <div class="card-body">
+        <div class="media">
+            {% if item.photo %}
+            <img src="{{ item.photo.url }}" alt="" , width="350" , class="mr-3">
+            {% else %}
+            <img src="https://sun9-53.userapi.com/impg/K767FfhmbmmKwqnTRQGBWz0PFgqI937eKsaQqw/-POAk1S3kps.jpg?size=384x480&quality=96&proxy=1&sign=c4ccd38ce4bfd7510c8142702be87bba"
+                 alt="" , width="250" , class="mr-3">
+            {% endif %}
+            <div class="media-body" ,>
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.content|truncatewords:50 }}</p>
+                <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more...</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        {{ item.created_at|date:"Y-m-d H:i" }}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
