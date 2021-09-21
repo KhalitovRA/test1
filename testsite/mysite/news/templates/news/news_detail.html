@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ news_item.title }} :: {{ block.super }}
+{% endblock %}
+
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+{% now "Y-m-d H:m" %}
+<div class="card mb-3">
+    <div class="card-header">
+        Категория: <a href="{{ news_item.category.get_absolute_url }}">{{ news_item.category.title }}</a>
+    </div>
+    <div class="card-body">
+
+        {% if news_item.photo %}
+        <img src="{{ news_item.photo.url }}" alt="" , width="350" , class="float-left mr-3">
+        {% else %}
+        <img src="https://sun9-53.userapi.com/impg/K767FfhmbmmKwqnTRQGBWz0PFgqI937eKsaQqw/-POAk1S3kps.jpg?size=384x480&quality=96&proxy=1&sign=c4ccd38ce4bfd7510c8142702be87bba"
+             alt="" , width="250" , class="float-left mr-3">
+        {% endif %}
+
+        <h5 class="card-title">{{ news_item.title }}</h5>
+        <p class="card-text">{{ news_item.content }}</p>
+    </div>
+    <div class="card-footer text-muted">
+        {{ news_item.created_at|date:"Y-m-d H:i" }}
+    </div>
+</div>
+{% endblock %}
