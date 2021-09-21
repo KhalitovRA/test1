@@ -3,6 +3,7 @@ from .models import News
 import re
 from django.core.exceptions import ValidationError
 
+
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
